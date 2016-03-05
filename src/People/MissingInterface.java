@@ -215,10 +215,12 @@ public class MissingInterface extends javax.swing.JFrame  {
 	    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {                                         
 	        // add button
 	    	Profile person = getInput();
-	    	person.calcHashCode();
-	    	boolean execute = Record.addRecord(person,quakeName);
-	    	if(execute){
-	    		JOptionPane.showMessageDialog(null, "Record Added Successfully", "Success", JOptionPane.PLAIN_MESSAGE);
+	    	if(person!=null){
+	    		person.calcHashCode();
+		    	boolean execute = Record.addRecord(person,quakeName);
+		    	if(execute){
+		    		JOptionPane.showMessageDialog(null, "Record Added Successfully", "Success", JOptionPane.PLAIN_MESSAGE);
+		    	}
 	    	}
 	    }                                        
 	    private Profile getInput(){
@@ -226,6 +228,7 @@ public class MissingInterface extends javax.swing.JFrame  {
 	    	String name = textField4.getText();
 	    	if(name==null||name.equals("")){
 	    		JOptionPane.showMessageDialog(null, "Name of victim is required","Required", JOptionPane.PLAIN_MESSAGE);
+	    		return null;
 	    	}else{
 	    		newPerson.setName(name);
 	    		if(jRadioButton1.isSelected()){
