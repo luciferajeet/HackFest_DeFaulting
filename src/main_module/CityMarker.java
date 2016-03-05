@@ -7,14 +7,16 @@ import processing.core.PConstants;
 import processing.core.PGraphics;
 
 /** Implements a visual marker for cities on an earthquake map
- * 
- * @author UC San Diego Intermediate Software Development MOOC team
- * 
+ * @author Team Defaulting
+ * Date 3rd March 2016
  */
 public class CityMarker extends CommonMarker {
 	
 	public static int TRI_SIZE = 5;  // The size of the triangle marker
-	
+	/** 
+	 * @param location ,shows location of cities on the map
+	 * 
+	 */
 	public CityMarker(Location location) {
 		super(location);
 	}

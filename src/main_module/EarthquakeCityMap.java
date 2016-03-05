@@ -25,9 +25,8 @@ import processing.core.PApplet;
 
 /** EarthquakeCityMap
  * An application with an interactive map displaying earthquake data.
- * Author: UC San Diego Intermediate Software Development MOOC team
- * @author Your name here
- * Date: July 17, 2015
+ * @author Team Defaulting
+ * Date: March 3, 2016
  * */
 public class EarthquakeCityMap extends PApplet {
 
@@ -98,13 +97,7 @@ public class EarthquakeCityMap extends PApplet {
 		}
 		MapUtils.createDefaultEventDispatcher(this, map);
 
-		// FOR TESTING: Set earthquakesURL to be one of the testing files by uncommenting
-		// one of the lines below.  This will work whether you are online or offline
-		//earthquakesURL = "test1.atom";
-		//earthquakesURL = "test2.atom";
-
-		// Uncomment this line to take the quiz
-		//earthquakesURL = "quiz2.atom";
+	
 		airports = new HashMap<Integer, Location>();
 		routeList = new ArrayList<Marker>();
 		// (2) Reading in earthquake data and geometric properties
@@ -160,9 +153,6 @@ public class EarthquakeCityMap extends PApplet {
 			
 			SimpleLinesMarker sl = new SimpleLinesMarker(route.getLocations(), route.getProperties());
 		
-			//System.out.println(sl.getProperties());
-			
-			//UNCOMMENT IF YOU WANT TO SEE ALL ROUTES
 			routeList.add(sl);
 		}
 		
@@ -183,11 +173,13 @@ public class EarthquakeCityMap extends PApplet {
 	    airports = new HashMap<Integer, Location>();
 	    for (Marker marker : airportMarkers)
 			marker.setHidden(true);
-//sortAndPrint(50);
+
 
 	}  // End setup
 
-
+   /**
+    * renders the map
+    */
 	public void draw() {
 		background(0);
 		map.draw();
@@ -196,14 +188,12 @@ public class EarthquakeCityMap extends PApplet {
 	}
 
 
-	// TODO: Add the method:
 	private void sortAndPrint(int numToPrint){
 		Object[] arrayMarker = quakeMarkers.toArray();
 		Arrays.sort(arrayMarker);
 		if(numToPrint > arrayMarker.length) numToPrint = arrayMarker.length;
 		int revNum = arrayMarker.length-numToPrint;
 		for(int i=arrayMarker.length-1;i>=revNum;i--) System.out.println(arrayMarker[i].toString()+" ");
-		//System.out.println();
 	}
 	// and then call that method from setUp
 
@@ -306,20 +296,27 @@ public class EarthquakeCityMap extends PApplet {
 		return false;
 	}
 
-
+/**
+ * calls an object of Donate2 to class which implements the donation service  
+ */
 	private void callDonation() {
 		new Donate2();
 
 	}
 
-
+/**
+ * calls the database which stores the missing person's information and also implements its searching.
+ */
 	private void callDatabase() {
 		//System.out.println("DB pending");
 		new MissingInterface(lastClicked.getStringProperty("name")).setVisible(true);
 	}
 
 
-
+/**
+ * helper function to display the airports and their routes.
+ * @param markerSelected denotes the currently selected marker.
+ */
 	private void showAirports(EarthquakeMarker markerSelected){
 		Location location = markerSelected.getLocation();
 		double threatDistance = ((EarthquakeMarker) markerSelected).threatCircle();
@@ -356,8 +353,10 @@ public class EarthquakeCityMap extends PApplet {
 
 	}
 
-	// Helper method that will check if a city marker was clicked on
-	// and respond appropriately
+	/**
+	 *  Helper method that will check if a city marker was clicked on
+	 *   and respond appropriately
+	 */
 	private void checkCitiesForClick()
 	{
 		if (lastClicked != null) return;
@@ -383,8 +382,7 @@ public class EarthquakeCityMap extends PApplet {
 		}
 	}
 
-	// Helper method that will check if an earthquake marker was clicked on
-	// and respond appropriately
+	/** Helper method that will check if an earthquake marker was clicked on and respond appropriately*/
 	private void checkEarthquakesForClick()
 	{
 		if (lastClicked != null) return;
@@ -415,6 +413,9 @@ public class EarthquakeCityMap extends PApplet {
 			
 		}
 	}
+	/**
+	 * Helper function to check if legend is clicked.
+	 */
 
 	private void checkLegendForClick(){
 		if(lastClicked!=null) return;
@@ -548,7 +549,7 @@ public class EarthquakeCityMap extends PApplet {
 
 	// helper method to draw key in GUI
 	private void addKey() {
-		// Remember you can use Processing's graphics methods here
+	
 		fill(255, 250, 240);
 
 		int xbase = 25;
@@ -659,37 +660,8 @@ public class EarthquakeCityMap extends PApplet {
 		return false;
 	}
 
-	// prints countries with number of earthquakes
-	// You will want to loop through the country markers or country features
-	// (either will work) and then for each country, loop through
-	// the quakes to count how many occurred in that country.
-	// Recall that the country markers have a "name" property,
-	// And LandQuakeMarkers have a "country" property set.
-	/*private void printQuakes() {
-		int totalWaterQuakes = quakeMarkers.size();
-		for (Marker country : countryMarkers) {
-			String countryName = country.getStringProperty("name");
-			int numQuakes = 0;
-			for (Marker marker : quakeMarkers)
-			{
-				EarthquakeMarker eqMarker = (EarthquakeMarker)marker;
-				if (eqMarker.isOnLand()) {
-					if (countryName.equals(eqMarker.getStringProperty("country"))) {
-						numQuakes++;
-					}
-				}
-			}
-			if (numQuakes > 0) {
-				totalWaterQuakes -= numQuakes;
-				System.out.println(countryName + ": " + numQuakes);
-			}
-		}
-		System.out.println("OCEAN QUAKES: " + totalWaterQuakes);
-	}*/
-
-
-
-	// helper method to test whether a given earthquake is in a given country
+	
+    // helper method to test whether a given earthquake is in a given country
 	// This will also add the country property to the properties of the earthquake feature if
 	// it's in one of the countries.
 	// You should not have to modify this code

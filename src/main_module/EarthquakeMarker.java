@@ -6,20 +6,15 @@ import processing.core.PGraphics;
 
 /** Implements a visual marker for earthquakes on an earthquake map
  * 
- * @author UC San Diego Intermediate Software Development MOOC team
- *
+ * @author Team Defaulting
+ * Date March 4,2016
  */
-// TODO: Implement the comparable interface
 public abstract class EarthquakeMarker extends CommonMarker implements Comparable<EarthquakeMarker>
 {
 	
-	// Did the earthquake occur on land?  This will be set by the subclasses.
 	protected boolean isOnLand;
 
-	// The radius of the Earthquake marker
-	// You will want to set this in the constructor, either
-	// using the thresholds below, or a continuous function
-	// based on magnitude. 
+	// The radius of the Earthquake marker 
 	protected float radius;
 	
 	
@@ -35,8 +30,6 @@ public abstract class EarthquakeMarker extends CommonMarker implements Comparabl
 	public static final float THRESHOLD_INTERMEDIATE = 70;
 	/** Greater than or equal to this threshold is a deep depth */
 	public static final float THRESHOLD_DEEP = 300;
-
-	// ADD constants for colors
 
 	
 	// abstract method implemented in derived classes
@@ -55,7 +48,6 @@ public abstract class EarthquakeMarker extends CommonMarker implements Comparabl
 		this.radius = 1.75f*getMagnitude();
 	}
 	
-	// TODO: Add the method:
 	public int compareTo(EarthquakeMarker marker){
 		if(this.getMagnitude()>marker.getMagnitude()) return 1;
 		if(this.getMagnitude()<marker.getMagnitude()) return -1;
@@ -66,7 +58,7 @@ public abstract class EarthquakeMarker extends CommonMarker implements Comparabl
 	// calls abstract method drawEarthquake and then checks age and draws X if needed
 	@Override
 	public void drawMarker(PGraphics pg, float x, float y) {
-		// save previous styling
+	
 		pg.pushStyle();
 			
 		// determine color of marker from depth
@@ -74,8 +66,7 @@ public abstract class EarthquakeMarker extends CommonMarker implements Comparabl
 		
 		// call abstract method implemented in child class to draw marker shape
 		drawEarthquake(pg, x, y);
-		
-		// IMPLEMENT: add X over marker if within past day		
+				
 		String age = getStringProperty("age");
 		if ("Past Hour".equals(age) || "Past Day".equals(age)) {
 			
@@ -121,10 +112,7 @@ public abstract class EarthquakeMarker extends CommonMarker implements Comparabl
 	
 	/**
 	 * Return the "threat circle" radius, or distance up to 
-	 * which this earthquake can affect things, for this earthquake.   
-	 * DISCLAIMER: this formula is for illustration purposes
-	 *  only and is not intended to be used for safety-critical 
-	 *  or predictive applications.
+	 * which this earthquake can affect things, for this earthquake.  
 	 */
 	public double threatCircle() {	
 		double miles = 20.0f * Math.pow(1.8, 2*getMagnitude()-5);

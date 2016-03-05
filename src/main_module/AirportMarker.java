@@ -9,10 +9,8 @@ import processing.core.PGraphics;
 
 /** 
  * A class to represent AirportMarkers on a world map.
- *   
- * @author Adam Setters and the UC San Diego Intermediate Software Development
- * MOOC team
- *
+ * @author Team Defaulting
+ * Date 3rd march 2016
  */
 public class AirportMarker extends CommonMarker {
 	public static List<SimpleLinesMarker> routes;
@@ -33,8 +31,6 @@ public class AirportMarker extends CommonMarker {
 	@Override
 	public void showTitle(PGraphics pg, float x, float y) {
 		 // show rectangle with title
-		
-		// show routes
 		
 	
 	}
