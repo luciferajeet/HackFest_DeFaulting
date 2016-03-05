@@ -34,7 +34,7 @@ public class EarthquakeCityMap extends PApplet {
 	// per country.
 
 	private boolean isQuakeClicked = false;
-
+	private boolean isInLegend = false;
 	// You can ignore this.  It's to get rid of eclipse warnings
 	private static final long serialVersionUID = 1L;
 
@@ -233,7 +233,8 @@ public class EarthquakeCityMap extends PApplet {
 				isQuakeClicked = false;
 			}
 		}
-		else if (lastClicked == null)
+		
+		else if (lastClicked == null || isInLegend)
 		{
 			checkEarthquakesForClick();
 			if (lastClicked == null) {
@@ -358,28 +359,58 @@ public class EarthquakeCityMap extends PApplet {
 
 		if(mouseX>=tri_xbase-10 && mouseX<=tri_xbase+70)
 			if(mouseY>=tri_ybase-5 && mouseY<=tri_ybase+7)
+				{
 				hideNonCity();
+				isInLegend = true;
+				lastClicked = null;
+				return;
+				}
 
 		if(mouseX>=tri_xbase-10 && mouseX<=tri_xbase+70)
 			if(mouseY>=ybase+70 && mouseY<=ybase+82)
+				{
 				hideNonLand();
+				isInLegend = true;
+				lastClicked = null;
+				return;
+				}
 
 		if(mouseX>=tri_xbase-10 && mouseX<=tri_xbase+70)
 			if(mouseY>=ybase+140 && mouseY<=ybase+152)
+				{
 				showShallow();
+				isInLegend = true;
+				lastClicked = null;
+				return;
+				}
 
 		if(mouseX>=tri_xbase-10 && mouseX<=tri_xbase+70)
 			if(mouseY>=ybase+160 && mouseY<=ybase+172)
+				{
 				showInter();
+				isInLegend = true;
+				lastClicked = null;
+				return;
+				}
 
 		if(mouseX>=tri_xbase-10 && mouseX<=tri_xbase+70)
 			if(mouseY>=ybase+180 && mouseY<=ybase+192)
+				{
 				showDeep();
+				isInLegend = true;
+				lastClicked = null;
+				return;
+				}
 
 		if(mouseX>=tri_xbase-10 && mouseX<=tri_xbase+70)
 			if(mouseY>=ybase+200 && mouseY<=ybase+212)
+				{
 				showPastHour();
-
+				isInLegend = true;
+				lastClicked = null;
+				return;
+				}
+		isInLegend = false;
 		lastClicked = (CommonMarker) cityMarkers.get(0);
 
 	}
