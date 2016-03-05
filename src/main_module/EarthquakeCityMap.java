@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import People.MissingInterface;
 import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.data.Feature;
 import de.fhpotsdam.unfolding.data.GeoJSONReader;
@@ -272,8 +273,8 @@ public class EarthquakeCityMap extends PApplet {
 
 
 	private void callDatabase() {
-		System.out.println("DB pending");
-
+		//System.out.println("DB pending");
+		new MissingInterface(lastClicked.getStringProperty("name")).setVisible(true);
 	}
 
 
