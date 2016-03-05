@@ -87,6 +87,8 @@ public class AirportMap extends PApplet {
 		
 	}
 	
+	
+	
 	public void draw() {
 		background(0);
 		map.draw();
