@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
+import Donation.Donate2;
 import People.MissingInterface;
 import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.data.Feature;
@@ -307,7 +308,7 @@ public class EarthquakeCityMap extends PApplet {
 
 
 	private void callDonation() {
-		System.out.println("Donation pending");
+		new Donate2();
 
 	}
 
