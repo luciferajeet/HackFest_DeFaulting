@@ -31,7 +31,9 @@ public class EarthquakeCityMap extends PApplet {
 	// You will use many of these variables, but the only one you should need to add
 	// code to modify is countryQuakes, where you will store the number of earthquakes
 	// per country.
-	
+
+	private boolean isQuakeClicked = false;
+
 	// You can ignore this.  It's to get rid of eclipse warnings
 	private static final long serialVersionUID = 1L;
 
@@ -123,7 +125,7 @@ public class EarthquakeCityMap extends PApplet {
 		    quakeMarkers.add(new OceanQuakeMarker(feature));
 		  }
 	    }
-	    
+
 	    List<PointFeature> features = ParseFeed.parseAirports(this, "airports.dat");
 
 		airportMarkers = new ArrayList<Marker>();
@@ -141,7 +143,7 @@ public class EarthquakeCityMap extends PApplet {
 	    map.addMarkers(quakeMarkers);
 	    map.addMarkers(cityMarkers);
 	    map.addMarkers(airportMarkers);
-	    
+
 	    for (Marker marker : airportMarkers)
 			marker.setHidden(true);
 //sortAndPrint(50);
@@ -213,12 +215,22 @@ public class EarthquakeCityMap extends PApplet {
 	@Override
 	public void mouseClicked()
 	{
-		if (lastClicked != null) {
+		if (lastClicked != null && !isQuakeClicked) {
 			unhideMarkers();
 			for (Marker marker : airportMarkers){
 				marker.setHidden(true);
 			}
 			lastClicked = null;
+		}
+		else if(isQuakeClicked){
+			boolean isButtonClicked = checkButtonClick();
+			if(!isButtonClicked){
+				unhideMarkers();
+				for (Marker marker : airportMarkers){
+					marker.setHidden(true);
+				}
+				isQuakeClicked = false;
+			}
 		}
 		else if (lastClicked == null)
 		{
@@ -232,7 +244,40 @@ public class EarthquakeCityMap extends PApplet {
 
 		}
 	}
-	
+
+	private boolean checkButtonClick() {
+		int xbase = 25;
+		int ybase = 50;
+
+		if(mouseX>=xbase+18 && mouseX<=xbase+138){
+			if(mouseY>=ybase+260 && mouseY<=ybase+285){
+				callDatabase();
+				return true;
+			}
+		}
+		if(mouseX>=xbase+35 && mouseX<=xbase+115){
+			if(mouseY>=ybase+300 && mouseY<=ybase+320){
+				callDonation();
+				return true;
+			}
+		}
+		return false;
+	}
+
+
+	private void callDonation() {
+		System.out.println("Donation pending");
+
+	}
+
+
+	private void callDatabase() {
+		System.out.println("DB pending");
+
+	}
+
+
+
 	private void showAirports(EarthquakeMarker markerSelected){
 		Location location = markerSelected.getLocation();
 		double threatDistance = ((EarthquakeMarker) markerSelected).threatCircle();
@@ -245,7 +290,7 @@ public class EarthquakeCityMap extends PApplet {
 			}
 		}
 	}
-	
+
 	// Helper method that will check if a city marker was clicked on
 	// and respond appropriately
 	private void checkCitiesForClick()
@@ -279,7 +324,7 @@ public class EarthquakeCityMap extends PApplet {
 	{
 		if (lastClicked != null) return;
 		// Loop over the earthquake markers to see if one of them is selected
-		addButton();
+
 		for (Marker m : quakeMarkers) {
 			EarthquakeMarker marker = (EarthquakeMarker)m;
 			if (!marker.isHidden() && marker.isInside(map, mouseX, mouseY)) {
@@ -297,6 +342,7 @@ public class EarthquakeCityMap extends PApplet {
 					}
 				}
 				showAirports(marker);
+				isQuakeClicked = true;
 				return;
 			}
 		}
@@ -453,18 +499,33 @@ public class EarthquakeCityMap extends PApplet {
 		text("Deep", xbase+50, ybase+180);
 
 		text("Past hour", xbase+50, ybase+200);
-		
+
 		text("Airports", xbase + 50, ybase + 217);
-		
+
 		fill(255, 255, 255);
 		int centerx = xbase+35;
 		int centery = ybase+200;
 		ellipse(centerx, centery, 12, 12);
+		if(isQuakeClicked){
+			stroke(240, 232, 14);
 
+			fill(255,255,255);
+			rect(xbase+18, ybase+260, 120, 25);
+
+			fill(255, 255, 255);
+			rect(xbase+35, ybase+300, 80, 20);
+
+			fill(0, 0, 0);
+			text("Victim Database", xbase+27, ybase+270);
+
+			fill(0, 0, 0);
+			text("Donation", xbase+45, ybase+309);
+		}
+		else stroke(0);
 		strokeWeight(2);
 		line(centerx-8, centery-8, centerx+8, centery+8);
 		line(centerx-8, centery+8, centerx+8, centery-8);
-		
+
 		fill(200, 240);
 		rect(xbase + 30, ybase + 215, 10, 10);
 
