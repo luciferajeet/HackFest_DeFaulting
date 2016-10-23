@@ -1,4 +1,5 @@
-unfolding map api for map implementation and processing api for rendering graphics
+#Disaster Management Tool
+##unfolding map api for map implementation and processing api for rendering graphics
 ==================================================================
 
 This project aims to act as an analytical as well as a disaster management tool. The map shows earthquakes based on a legend, differentiating them on basis of location and severity. The earthquake data is pulled from usgs.gov.in's RSS feed for real time data.
